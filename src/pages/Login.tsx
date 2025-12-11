@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Envelope, Lock } from "react-bootstrap-icons";
 
-const ADMIN_EMAIL = "test@admin.com";
-const ADMIN_PASSWORD = "123456";
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
 
 const AdminLogin = () => {
   const navigate = useNavigate();
