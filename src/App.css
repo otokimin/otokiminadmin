@@ -1,0 +1,30 @@
+.user-search-input:focus {
+  border-color: #f7db23 !important;
+  box-shadow: 0 0 0 0.15rem rgba(247, 219, 35, 0.35) !important;
+}
+
+
+.user-add-btn {
+  background-color: #f7db23 !important;
+  border-color: #f7db23 !important;
+  color: white !important;
+  height: 40px;
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .user-add-btn {
+    min-width: 160px;
+  }
+}
+
+/* Mobil */
+@media (max-width: 767px) {
+  .user-add-btn {
+    min-width: auto;
+    width: fit-content;
+  }
+}
