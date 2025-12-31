@@ -9,7 +9,9 @@ export const getUsersFromFirestore = async (): Promise<IUser[]> => {
       uid: d.id,
       ...(d.data() as Omit<IUser, "uid">)
     }))
-    .sort((a, b) => (b.createdAt ?? 0) - (a.createdAt ?? 0));
+.sort((a, b) =>
+  Number(b.createdAt ?? 0) - Number(a.createdAt ?? 0)
+);
 };
 
 export const deleteUser = async (uid: string): Promise<void> => {

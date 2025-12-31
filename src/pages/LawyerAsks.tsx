@@ -21,7 +21,6 @@ const LawyerAsk: React.FC = () => {
 
   useEffect(() => {
     const unsubUsers = onSnapshot(collection(db, "user"), (snap) => {
-      const temp: UserItem[] = [];
       snap.forEach((doc) => {
         const userId = doc.id;
         const userData = doc.data();
