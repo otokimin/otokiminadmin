@@ -20,6 +20,17 @@ const AdsCreateModal = ({
     endDate: new Date(),
   });
 
+  const formatDateForInput = (date: Date): string => {
+    try {
+      if (!(date instanceof Date) || isNaN(date.getTime())) {
+        return new Date().toISOString().slice(0, 16);
+      }
+      return date.toISOString().slice(0, 16);
+    } catch {
+      return new Date().toISOString().slice(0, 16);
+    }
+  };
+
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
 
@@ -121,9 +132,7 @@ const AdsCreateModal = ({
             <Form.Label>Başlangıç</Form.Label>
             <Form.Control
               type="datetime-local"
-              value={new Date(form.startDate)
-                .toISOString()
-                .slice(0, 16)}
+              value={formatDateForInput(form.startDate)}
               onChange={(e) =>
                 setForm({
                   ...form,
@@ -137,9 +146,7 @@ const AdsCreateModal = ({
             <Form.Label>Bitiş</Form.Label>
             <Form.Control
               type="datetime-local"
-              value={new Date(form.endDate)
-                .toISOString()
-                .slice(0, 16)}
+              value={formatDateForInput(form.endDate)}
               onChange={(e) =>
                 setForm({
                   ...form,

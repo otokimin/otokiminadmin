@@ -16,6 +16,34 @@ const AdsEditModal = ({ show, onClose, ad, onSaved }: Props) => {
   const [saving, setSaving] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
 
+  const formatDateForInput = (date: any): string => {
+    try {
+      let dateObj: Date;
+      
+      // Handle Firestore Timestamp objects
+      if (date && typeof date === 'object' && 'toDate' in date) {
+        dateObj = date.toDate();
+      } else if (date instanceof Date) {
+        dateObj = date;
+      } else if (typeof date === 'string') {
+        dateObj = new Date(date);
+      } else if (typeof date === 'number') {
+        dateObj = new Date(date);
+      } else {
+        return '';
+      }
+
+      // Validate the date
+      if (isNaN(dateObj.getTime())) {
+        return '';
+      }
+
+      return dateObj.toISOString().slice(0, 16);
+    } catch {
+      return '';
+    }
+  };
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setForm(ad || null);
@@ -135,7 +163,7 @@ const AdsEditModal = ({ show, onClose, ad, onSaved }: Props) => {
               <Form.Label>Başlangıç</Form.Label>
               <Form.Control
                 type="datetime-local"
-                value={new Date(form.startDate).toISOString().slice(0, 16)}
+                value={formatDateForInput(form.startDate)}
                 onChange={(e) =>
                   setForm({ ...form, startDate: new Date(e.target.value) })
                 }
@@ -146,7 +174,7 @@ const AdsEditModal = ({ show, onClose, ad, onSaved }: Props) => {
               <Form.Label>Bitiş</Form.Label>
               <Form.Control
                 type="datetime-local"
-                value={new Date(form.endDate).toISOString().slice(0, 16)}
+                value={formatDateForInput(form.endDate)}
                 onChange={(e) =>
                   setForm({ ...form, endDate: new Date(e.target.value) })
                 }
