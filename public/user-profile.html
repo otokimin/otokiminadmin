@@ -244,6 +244,7 @@
         <div>
           <div class="profile-name" id="userName">—</div>
           <div class="profile-email" id="userEmail">—</div>
+          <div class="profile-phone" id="userPhone" style="color: var(--muted); font-size: 0.85rem; margin-top: 0.15rem;"></div>
           <div class="badge-verified">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             Doğrulanmış Üye
@@ -260,6 +261,10 @@
 
     <!-- App Buttons -->
     <div class="app-buttons">
+      <button id="chatBtn" class="app-btn" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; color: #fff;">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l1.65-4.77A8.94 8.94 0 013 12C3 6.48 7.92 2 13.5 2S24 6.48 24 12s-4.92 10-10.5 10c-1.61 0-3.14-.31-4.54-.88L2 21z"/></svg>
+        Sohbet Et
+      </button>
       <a href="https://apps.apple.com/tr/app/otokimin/id123456789" class="app-btn btn-ios" target="_blank">
         <!-- Apple Icon -->
         <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -267,7 +272,6 @@
         </svg>
         App Store'dan İndir
       </a>
-
       <a href="https://play.google.com/store/apps/details?id=com.otokimin" class="app-btn btn-android" target="_blank">
         <!-- Play Icon -->
         <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -289,10 +293,23 @@
     const uid   = params.get("uid") || "";
     const name  = params.get("name") || "Bilinmeyen Kullanıcı";
     const email = params.get("email") || "";
+    const phone = params.get("phone") || "";
 
     // Profil bilgileri
     document.getElementById("userName").textContent  = name;
     document.getElementById("userEmail").textContent = email;
+    if (phone) {
+      document.getElementById("userPhone").textContent = phone;
+    }
+    // Sohbet Et butonu — uygulama içi chat ekranına yönlendir
+    document.getElementById("chatBtn").addEventListener("click", function() {
+      // Uygulama içi chat ekranı yolu: /chat?uid=...
+      if (uid) {
+        window.location.href = `/chat?uid=${encodeURIComponent(uid)}&name=${encodeURIComponent(name)}`;
+      } else {
+        alert("Kullanıcı bulunamadı.");
+      }
+    });
 
     // Avatar baş harf
     const avatarEl = document.getElementById("avatar");
