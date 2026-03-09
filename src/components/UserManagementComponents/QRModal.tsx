@@ -52,7 +52,7 @@ const QRModal = ({ show, onClose, user }: Props) => {
     // <svg ...> ile <rect ...> veya <g ...> arasına ekle
     source = source.replace(
       /(<svg[^>]*>)([\s\S]*)(<\/svg>)/,
-      (full, open, inner, close) => {
+      (_unused, open, inner, close) => {
         // Orijinal içeriği bul
         // <g> varsa, sadece <g> içini taşı
         // Yoksa tüm içeriği taşı

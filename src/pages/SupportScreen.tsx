@@ -73,20 +73,6 @@ const SupportScreen = () => {
     setConfirmDelete(null);
     load();
   };
-const sendAllToCentralApi = async () => {
-  for (const r of requests) {
-    await sendToCentralApi({
-      projectName: "Otokimin",
-      email: r.email,
-      firstName: r.userId,
-      surname: null,
-      title: "Mobil Destek Talebi",
-      body: r.message
-    })
-  }
-
-  alert("Tüm talepler merkezi sisteme gönderildi")
-}
 
   return (
     <div className="container-fluid px-md-4">
