@@ -132,9 +132,9 @@ const QRModal = ({ show, onClose, user }: Props) => {
           >
             <QRCodeSVG
               value={qrValue}
-              size={200}
-              level="M"
-              includeMargin={false}
+              size={320} // Daha büyük QR kod
+              level="H" // Yüksek hata toleransı
+              includeMargin={true} // Dış boşluk ekle
               ref={qrRef}
             />
             <div style={{ fontSize: 11, color: "#212529", marginTop: 6, fontWeight: 700, letterSpacing: 1 }}>
