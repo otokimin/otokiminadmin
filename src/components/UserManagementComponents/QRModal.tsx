@@ -15,7 +15,7 @@ const QRModal = ({ show, onClose, user }: Props) => {
     ? encodeURIComponent(JSON.stringify(user.cars))
     : "";
 
-  const qrValue = `http://localhost:5173/user-profile?uid=${user.uid}&name=${encodeURIComponent(user.displayName || "")}&email=${encodeURIComponent(user.email || "")}${cars ? `&cars=${cars}` : ""}`;
+  const qrValue = `https://otokiminadmin.vercel.app/user-profile?uid=${user.uid}&name=${encodeURIComponent(user.displayName || "")}&email=${encodeURIComponent(user.email || "")}${cars ? `&cars=${cars}` : ""}`;
 
   const qrRef = useRef<SVGSVGElement>(null);
 
