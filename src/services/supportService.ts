@@ -8,6 +8,7 @@ export interface ISupport {
   message: string;
   createdAt: string;  
   seen: boolean;
+  sentToCentral?: boolean;
 }
 
 export const getSupportRequests = async (): Promise<ISupport[]> => {
@@ -31,6 +32,12 @@ export const deleteSupport = async (id: string): Promise<void> => {
 export const toggleSeen = async (id: string, current: boolean): Promise<void> => {
   await updateDoc(doc(db, "supportMessages", id), { seen: !current });
 };
+
+export const markAsSentToCentral = async (id: string) => {
+  await updateDoc(doc(db, "supportMessages", id), {
+    sentToCentral: true
+  })
+}
 
 export const addSupportRequest = async (
   userId: string,

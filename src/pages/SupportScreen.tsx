@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import Title from "../components/Title";
 import {
   getSupportRequests,
   toggleSeen,
   deleteSupport,
+  markAsSentToCentral,
   type ISupport
 } from "../services/supportService";
 import { Modal, Button } from "react-bootstrap";
 import { ChatLeftText, Trash } from "react-bootstrap-icons";
 import SupportReplyModal from '../components/SupportComponents/SupportReplyModal';
+import { sendToCentralApi } from "../services/supportApi";
 
 const SupportScreen = () => {
   const [requests, setRequests] = useState<ISupport[]>([]);
@@ -36,6 +39,29 @@ const SupportScreen = () => {
     load();
   }, []);
 
+  useEffect(() => {
+    const sendNewRequests = async () => {
+      for (const r of requests) {
+        if (!r.sentToCentral) {
+          await sendToCentralApi({
+            projectName: "Otokimin",
+            email: r.email,
+            firstName: r.userId,
+            surname: null,
+            title: "Mobil Destek Talebi",
+            body: r.message
+          })
+
+          await markAsSentToCentral(r.id)
+        }
+      }
+    }
+
+    if (requests.length > 0) {
+      sendNewRequests()
+    }
+  }, [requests])
+
   const handleToggleSeen = async (id: string, current: boolean) => {
     await toggleSeen(id, current);
     load();
@@ -47,6 +73,20 @@ const SupportScreen = () => {
     setConfirmDelete(null);
     load();
   };
+const sendAllToCentralApi = async () => {
+  for (const r of requests) {
+    await sendToCentralApi({
+      projectName: "Otokimin",
+      email: r.email,
+      firstName: r.userId,
+      surname: null,
+      title: "Mobil Destek Talebi",
+      body: r.message
+    })
+  }
+
+  alert("Tüm talepler merkezi sisteme gönderildi")
+}
 
   return (
     <div className="container-fluid px-md-4">

@@ -8,14 +8,18 @@ import UserManagement from "./pages/UserManagement";
 import AdminLogin from "./pages/Login";
 import ProtectedRoute from './../ProtectedRoute';
 import LawyerAsks from "./pages/LawyerAsks";
+import UserProfilePage from "./pages/UserProfilePage";
 
 function App() {
   return (
     <Router>
       <Routes>
-5
+
         {/* LOGIN */}
         <Route path="/admin" element={<AdminLogin />} />
+
+        {/* PUBLIC USER PROFILE PAGE (QR ile erişilen) */}
+        <Route path="/user-profile" element={<UserProfilePage />} />
 
         {/* ADMIN PANEL (protected) */}
         <Route
