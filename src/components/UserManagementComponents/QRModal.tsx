@@ -11,10 +11,11 @@ interface Props {
 
 const QRModal = ({ show, onClose, user }: Props) => {
   // QR okunduğunda açılacak URL — kendi domain'inize göre güncelleyin
+
+  // Her açılışta güncel user ile QR oluştur
   const cars = user.cars?.length
     ? encodeURIComponent(JSON.stringify(user.cars))
     : "";
-
   const qrValue = `https://otokiminadmin.vercel.app/user-profile?uid=${user.uid}&name=${encodeURIComponent(user.displayName || "")}&email=${encodeURIComponent(user.email || "")}${cars ? `&cars=${cars}` : ""}`;
 
   const qrRef = useRef<SVGSVGElement>(null);
