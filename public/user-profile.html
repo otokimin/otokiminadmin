@@ -243,8 +243,7 @@
         <div class="avatar" id="avatar">?</div>
         <div>
           <div class="profile-name" id="userName">—</div>
-          <div class="profile-email" id="userEmail">—</div>
-          <div class="profile-phone" id="userPhone" style="color: var(--muted); font-size: 0.85rem; margin-top: 0.15rem;"></div>
+          <div class="profile-phone" id="userPhone" style="color: var(--muted); font-size: 0.95rem; margin-top: 0.25rem;"></div>
           <div class="badge-verified">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             Doğrulanmış Üye
@@ -292,20 +291,18 @@
     const params = new URLSearchParams(window.location.search);
     const uid   = params.get("uid") || "";
     const name  = params.get("name") || "Bilinmeyen Kullanıcı";
-    const email = params.get("email") || "";
     const phone = params.get("phone") || "";
 
     // Profil bilgileri
     document.getElementById("userName").textContent  = name;
-    document.getElementById("userEmail").textContent = email;
     if (phone) {
       document.getElementById("userPhone").textContent = phone;
     }
     // Sohbet Et butonu — uygulama içi chat ekranına yönlendir
     document.getElementById("chatBtn").addEventListener("click", function() {
-      // Uygulama içi chat ekranı yolu: /chat?uid=...
+      // Uygulama içi chat ekranı deep linki: otokimin://chat?uid=...
       if (uid) {
-        window.location.href = `/chat?uid=${encodeURIComponent(uid)}&name=${encodeURIComponent(name)}`;
+        window.location.href = `otokimin://chat?uid=${encodeURIComponent(uid)}&name=${encodeURIComponent(name)}`;
       } else {
         alert("Kullanıcı bulunamadı.");
       }
@@ -315,30 +312,8 @@
     const avatarEl = document.getElementById("avatar");
     const initials = name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
     avatarEl.textContent = initials || "?";
-
-    // Araç bilgisi — ileride Firestore'dan çekilebilir
-    // Şimdilik URL'de cars yoksa placeholder göster
-    const carList = document.getElementById("carList");
-    const carsRaw = params.get("cars");
-    if (carsRaw) {
-      try {
-        const cars = JSON.parse(decodeURIComponent(carsRaw));
-        if (cars.length === 0) throw new Error("empty");
-        carList.innerHTML = cars.map(car => `
-          <div class="car-item">
-            <div>
-              <div class="car-plate">${car.plate || "-"}</div>
-              <div class="car-meta">${car.brand || ""} ${car.model || ""}</div>
-            </div>
-            ${car.isDefault ? '<span class="car-default">Varsayılan</span>' : ""}
-          </div>
-        `).join("");
-      } catch {
-        carList.innerHTML = '<div class="no-car">Kayıtlı araç bulunamadı</div>';
-      }
-    } else {
-      carList.innerHTML = '<div class="no-car">Kayıtlı araç bulunamadı</div>';
-    }
+    // Araç ve email bilgisi gösterilmeyecek, alanı temizle
+    document.getElementById("carList").innerHTML = "";
   </script>
 </body>
 </html>
