@@ -13,8 +13,9 @@ const QRModal = ({ show, onClose, user }: Props) => {
   // QR okunduğunda açılacak URL — kendi domain'inize göre güncelleyin
 
   // Her açılışta güncel user ile QR oluştur
-    const qrValue = `https://otokiminadmin.vercel.app/user-profile?uid=${user.uid}&name=${encodeURIComponent(user.displayName || "")}&email=${encodeURIComponent(user.email || "")}&phone=${encodeURIComponent(user.phone || "")}`;
-
+   // const qrValue = `https://otokiminadmin.vercel.app/user-profile?uid=${user.uid}&name=${encodeURIComponent(user.displayName || "")}&email=${encodeURIComponent(user.email || "")}&phone=${encodeURIComponent(user.phone || "")}`;
+ const cars = user.cars && user.cars.length > 0 ? encodeURIComponent(JSON.stringify(user.cars)) : "";
+ const qrValue = `http://localhost:5173/user-profile?uid=${user.uid}&name=${encodeURIComponent(user.displayName || "")}&email=${encodeURIComponent(user.email || "")}&phone=${encodeURIComponent(user.phone || "")}${cars ? `&cars=${cars}` : ""}`;
   const qrRef = useRef<SVGSVGElement>(null);
 
   const handleDownload = () => {
@@ -167,4 +168,4 @@ const QRModal = ({ show, onClose, user }: Props) => {
   );
 };
 
-export default QRModal;
+export default QRModal; 

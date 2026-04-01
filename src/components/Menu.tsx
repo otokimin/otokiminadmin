@@ -32,6 +32,8 @@ const Menu: React.FC = () => {
     { name: "Reklam Yönetimi", path: "/ads", icon: <Megaphone size={20} /> },
     { name: "Premium Yönetimi", path: "/premium", icon: <BarChart size={20} /> },
     { name: "Kullanıcı Yönetimi", path: "/user", icon: <People size={20} /> },
+          { name: "Şikayet Raporları", path: "/reports", icon: <BarChart size={20} /> },
+
     { name: "Destek Talepleri", path: "/support", icon: <Gear size={20} /> },
         { name: "Avukata Sor", path: "/lawyerAsk", icon: <ChatSquareText size={20} /> },
 

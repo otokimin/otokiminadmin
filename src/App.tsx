@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Menu from "./components/Menu";
+import ReportsScreen from "./pages/ReportsScreen";
 import DashBoardScreen from "./pages/DashBoardScreen";
 import AdsManagement from "./pages/AdsManangement";
 import PremiumManagement from "./pages/PremiumManangement";
@@ -37,8 +38,7 @@ function App() {
                       <Route path="/support" element={<SupportScreen />} />
                       <Route path="/user" element={<UserManagement />} />
                       <Route path="/lawyerAsk" element={<LawyerAsks />} />
-
-
+                      <Route path="/reports" element={<ReportsScreen />} />
                     </Routes>
                   </div>
                 </div>
